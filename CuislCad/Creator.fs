@@ -5,7 +5,6 @@ open Autodesk.AutoCAD.DatabaseServices
 open Autodesk.AutoCAD.Geometry
 
 open Convert
-////open Cuisl
 
 let point(p) = new DBPoint(pto3d p)
 let line(p1,p2) = new Line(pto3d p1,pto3d p2)

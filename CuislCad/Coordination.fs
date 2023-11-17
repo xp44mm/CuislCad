@@ -2,11 +2,11 @@
 
 open System
 open System.Collections.Generic
+
 open Autodesk.AutoCAD
 open Autodesk.AutoCAD.DatabaseServices
 open Autodesk.AutoCAD.EditorInput
 open Autodesk.AutoCAD.Geometry
-//open Autodesk.AutoCAD.Colors
 
 type Coordination(pos : Point2d, aValue : float, bValue : float, aDir : Vector2d, bDir : Vector2d) =
     let Matrix =

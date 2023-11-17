@@ -1,13 +1,12 @@
 ﻿module Part
 
-
-open Autodesk.AutoCAD
 open Autodesk.AutoCAD.DatabaseServices
 open Autodesk.AutoCAD.EditorInput
 open Autodesk.AutoCAD.Geometry
 
 open System.Windows
 open System.Windows.Controls
+
 open AutoCADWpf
 
 open Convert

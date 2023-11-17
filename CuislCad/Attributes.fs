@@ -4,7 +4,6 @@ open Autodesk.AutoCAD.DatabaseServices
 open Autodesk.AutoCAD.Geometry
 
 open Input
-open EntityOps
 
 let getAttributes (blockReferenceId: ObjectId) =
     let db = getDb()

@@ -31,9 +31,6 @@ let parse (text:string) =
 let toArray2D (arr:'a [][]) =
     let rows = arr.Length
     let cols = arr.[0].Length
-//            arr
-//            |> Array.map(fun cs -> cs.Length)
-//            |> Array.max
     let retArray = Array2D.create rows cols Unchecked.defaultof<'a>
     arr
     |> Array.iteri(fun r cs ->

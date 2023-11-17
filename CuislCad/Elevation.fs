@@ -5,7 +5,6 @@ open Autodesk.AutoCAD
 open Autodesk.AutoCAD.DatabaseServices
 open Autodesk.AutoCAD.EditorInput
 open Autodesk.AutoCAD.Geometry
-//open Autodesk.AutoCAD.Colors
 open Input
 
 type Elevation(pos:float, value:float, dir:Vector3d)=

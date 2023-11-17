@@ -1,16 +1,13 @@
 ﻿namespace cuisl.cad
 
 open System
-open System.Text 
 open System.IO 
 
 open Autodesk.AutoCAD
 open Autodesk.AutoCAD.DatabaseServices
 open Autodesk.AutoCAD.EditorInput
 open Autodesk.AutoCAD.Geometry
-open Autodesk.AutoCAD.Colors
 open Input
-open Table
 
 open ColumnStyles
 open Newtonsoft.Json

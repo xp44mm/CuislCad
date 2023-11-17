@@ -2,17 +2,11 @@
 
 open System
 open System.Windows
-open System.Windows.Controls
 
 open Autodesk.AutoCAD
 open Autodesk.AutoCAD.DatabaseServices
-open Autodesk.AutoCAD.EditorInput
-//open Autodesk.AutoCAD.Geometry
-//open Autodesk.AutoCAD.Colors
 
 open Input
-open EntityOps
-//open System.Windows.Forms 
 
 type ImportBlocks() =
 

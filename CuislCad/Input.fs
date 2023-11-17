@@ -1,13 +1,8 @@
 ﻿module Input
 
-//open Autodesk.AutoCAD
 open Autodesk.AutoCAD.ApplicationServices
 open Autodesk.AutoCAD.DatabaseServices
-
-//open Autodesk.AutoCAD.Geometry
 open Autodesk.AutoCAD.EditorInput
-
-//open System
 
 let getDocument() = Application.DocumentManager.MdiActiveDocument
 let getDb() = HostApplicationServices.WorkingDatabase

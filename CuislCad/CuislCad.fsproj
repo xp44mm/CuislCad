@@ -8,11 +8,18 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <OutputPath></OutputPath>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Tailcalls>False</Tailcalls>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <Tailcalls>False</Tailcalls>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="Input.fs" />
 		<Compile Include="Array.fs" />
+		<Compile Include="ColumnStyles.fs" />
+		<Compile Include="Table.fs" />
+		<Compile Include="Input.fs" />
+		<Compile Include="TableDrawer.fs" />
 		<Compile Include="Convert.fs" />
 		<Compile Include="Creator.fs" />
 		<Compile Include="EntityOps.fs" />
@@ -20,15 +27,12 @@
 		<Compile Include="sector.fs" />
 		<Compile Include="Elevation.fs" />
 		<Compile Include="Part.fs" />
-		<Compile Include="ColumnStyles.fs" />
 		<Compile Include="Coordination.fs" />
 		<Compile Include="Drawer.fs" />
 		<Compile Include="ImportBlocks.fs" />
-		<Compile Include="Table.fs" />
 		<Compile Include="Plateforms.fs" />
 		<Compile Include="RectDrawer.fs" />
 		<Compile Include="Spliter.fs" />
-		<Compile Include="TableDrawer.fs" />
 		<Compile Include="TextDrawer.fs" />
 		<Compile Include="UpdateAttributeDrawer.fs" />
 		<Compile Include="工字钢.fs" />
@@ -90,7 +94,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+	  <PackageReference Include="MahApps.Metro" Version="2.4.10" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
@@ -114,5 +118,9 @@
 		<Reference Include="PresentationCore" />
 		<Reference Include="PresentationFramework" />
 		<Reference Include="WindowsBase" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="FSharp.Core" Version="8.0.100" />
 	</ItemGroup>
 </Project>
