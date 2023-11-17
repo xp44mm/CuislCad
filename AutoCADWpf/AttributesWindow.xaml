@@ -1,0 +1,94 @@
+﻿<mah:MetroWindow xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    x:Class="AutoCADWpf.AttributesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="修改属性" Height="371" Width="341" WindowStartupLocation="CenterScreen">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0">块名</Label>
+        <ComboBox Grid.Row="0" Grid.Column="1" DisplayMemberPath="Name" x:Name="lstBlocks" SelectionChanged="lstBlocks_SelectionChanged" />
+
+        <Label  Grid.Row="1">属性名</Label>
+        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="lstAttributes"
+                  ItemsSource="{Binding ElementName=lstBlocks, Path=SelectedItem.Attributes}" DisplayMemberPath="Tag" />
+
+        <Label  Grid.Row="2">属性值</Label>
+        <ListBox Grid.Row="2" Grid.Column="1" MaxHeight="100" x:Name="lstTextStrings"
+                 ItemsSource="{Binding ElementName=lstAttributes, Path=SelectedItem.TextStrings}" />
+
+        <Label Grid.Row="3">新字符串</Label>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtNewTextString"></TextBox>
+
+        <Button Grid.Row="4" Grid.Column="1" Click="Add_Click">添加</Button>
+
+        <Label Grid.Row="5">修改列表</Label>
+        
+        <!--<ListBox Grid.Row="5" Grid.Column="1" x:Name="lstModifies">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Path=TextString}"></TextBlock>
+                        <TextBox Grid.Column="1" Text="{Binding Path=NewTextString}"></TextBox>
+                        <Button Grid.Column="2" Tag="{Binding}" Click="Delete_Click">删除记录</Button>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="HorizontalAlignment"  Value="Stretch" ></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>-->
+
+        <DataGrid Grid.Row="5" Grid.Column ="1" AutoGenerateColumns="False" x:Name="lstModifies">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TextString" Width="*"  Binding="{Binding Path=TextString}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="NewTextString" Width="*" Binding="{Binding Path=NewTextString}"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Grid.Column="2" Tag="{Binding}" Click="Delete_Click">删除记录</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button Grid.Row ="6" Grid.Column="1" Click="Ok_Click">OK</Button>
+    </Grid>
+</mah:MetroWindow>

@@ -1,0 +1,66 @@
+﻿<mah:MetroWindow xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 x:Class="AutoCADWpf.SpliterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SpliterWindow" Height="300" Width="300">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock>宽度</TextBlock>
+            <TextBox   Grid.Column ="2" x:Name="txtWidth">1000</TextBox>
+
+            <TextBlock Grid.Row="1">内边半径</TextBlock>
+            <TextBox   Grid.Row="1" Grid.Column ="2" x:Name="txtRadius">200</TextBox>
+            
+            <TextBlock Grid.Row="2">出口宽度</TextBlock>
+            <TextBox   Grid.Row="2" Grid.Column ="2" x:Name="txtOutput">1000</TextBox>
+            
+            <TextBlock Grid.Row="3">转角</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column ="1">°</TextBlock>            
+            <TextBox   Grid.Row="3" Grid.Column ="2" x:Name="txtAngle">90</TextBox>
+                        
+            <TextBlock Grid.Row="4">导流板数量</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column ="1">#</TextBlock>
+            <TextBox   Grid.Row="4" Grid.Column ="2" x:Name="txtNumber">0</TextBox>
+
+        </Grid>
+
+        <Button x:Name="btnCalc">计算</Button>
+        
+        <DataGrid x:Name="dgSpliters" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Radius" Binding="{Binding Path=Radius}"></DataGridTextColumn>
+                <DataGridTextColumn Header="OptRadius" Binding="{Binding Path=OptRadius}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Click="Button_Click">Ok</Button>
+
+
+    </StackPanel>
+</mah:MetroWindow>

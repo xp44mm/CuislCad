@@ -1,0 +1,27 @@
+﻿<mah:MetroWindow xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 x:Class="AutoCADWpf.RectangleBlockWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="矩形块" Height="160" Width="250" WindowStartupLocation="CenterScreen">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <StackPanel>
+        <WrapPanel>
+            <TextBox MinWidth="60" Margin="5" x:Name="txtDx"></TextBox>
+            <TextBox MinWidth="60" Margin="5" x:Name="txtDy"></TextBox>
+        </WrapPanel>
+        <CheckBox Margin="5" x:Name="chkUp">Diagonal Up</CheckBox>
+        <CheckBox Margin="5" x:Name="chkDown">Diagonal Down</CheckBox>
+        <Button  Margin="5" x:Name="draw" Click="draw_Click">draw</Button>
+    </StackPanel>
+</mah:MetroWindow>

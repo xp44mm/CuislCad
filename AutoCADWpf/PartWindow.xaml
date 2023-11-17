@@ -1,0 +1,29 @@
+﻿<mah:MetroWindow xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    x:Class="AutoCADWpf.PartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PartWindow" Height="300" Width="300" Loaded="Window_Loaded">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" x:Name="dgObjects"></DataGrid>
+        <ComboBox Grid.Row="1" x:Name="cbViews"></ComboBox>
+        <Button Grid.Row="2" Click="Button_Click">Ok</Button>
+    </Grid>
+</mah:MetroWindow>

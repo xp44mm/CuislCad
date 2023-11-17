@@ -1,0 +1,118 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net481</TargetFramework>
+		<Platforms>AnyCPU;x64</Platforms>
+
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <OutputPath></OutputPath>
+	  <PlatformTarget>AnyCPU</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Input.fs" />
+		<Compile Include="Array.fs" />
+		<Compile Include="Convert.fs" />
+		<Compile Include="Creator.fs" />
+		<Compile Include="EntityOps.fs" />
+		<Compile Include="Attributes.fs" />
+		<Compile Include="sector.fs" />
+		<Compile Include="Elevation.fs" />
+		<Compile Include="Part.fs" />
+		<Compile Include="ColumnStyles.fs" />
+		<Compile Include="Coordination.fs" />
+		<Compile Include="Drawer.fs" />
+		<Compile Include="ImportBlocks.fs" />
+		<Compile Include="Table.fs" />
+		<Compile Include="Plateforms.fs" />
+		<Compile Include="RectDrawer.fs" />
+		<Compile Include="Spliter.fs" />
+		<Compile Include="TableDrawer.fs" />
+		<Compile Include="TextDrawer.fs" />
+		<Compile Include="UpdateAttributeDrawer.fs" />
+		<Compile Include="工字钢.fs" />
+		<Compile Include="槽钢.fs" />
+		<Compile Include="H型钢.fs" />
+		<Compile Include="角钢.fs" />
+		<Compile Include="扁钢.fs" />
+
+		<Compile Include="管子.fs" />
+		<Compile Include="Elbow.fs" />
+		<Compile Include="Reducer.fs" />
+		<Compile Include="Tee.fs" />
+		<Compile Include="突面平焊法兰.fs" />
+		<Compile Include="突面法兰盖.fs" />
+		<Compile Include="手动球阀.fs" />
+		<Compile Include="隔膜阀.fs" />
+		<Compile Include="旋启式止回阀.fs" />
+		<Compile Include="蝶阀.fs" />
+		<Compile Include="立式止回阀.fs" />
+		<Compile Include="膨胀节.fs" />
+		<Compile Include="六角螺母.fs" />
+		<Compile Include="地脚螺栓.fs" />
+		<Compile Include="U形吊板.fs" />
+		<Compile Include="U形耳子.fs" />
+		<Compile Include="U形螺栓管卡.fs" />
+		<Compile Include="三孔吊板.fs" />
+		<Compile Include="三孔短管夹.fs" />
+		<Compile Include="单孔吊板.fs" />
+		<Compile Include="单槽钢吊杆座.fs" />
+		<Compile Include="双孔吊板.fs" />
+		<Compile Include="双孔短管夹.fs" />
+		<Compile Include="垫板.fs" />
+		<Compile Include="工字钢垫圈.fs" />
+		<Compile Include="板支撑.fs" />
+		<Compile Include="槽钢支座.fs" />
+		<Compile Include="热压弯头托座.fs" />
+		<Compile Include="槽钢用方斜垫圈.fs" />
+		<Compile Include="焊接单板.fs" />
+		<Compile Include="焊接双板.fs" />
+		<Compile Include="焊接导向支座.fs" />
+		<Compile Include="焊接滑动支座.fs" />
+		<Compile Include="焊接管座.fs" />
+		<Compile Include="焊缝加强板.fs" />
+		<Compile Include="环形耳子.fs" />
+		<Compile Include="球锥垫圈副.fs" />
+		<Compile Include="立管支座.fs" />
+		<Compile Include="立管支撑板.fs" />
+		<Compile Include="立管焊接单板.fs" />
+		<Compile Include="立管焊接双板.fs" />
+		<Compile Include="立管短管夹.fs" />
+		<Compile Include="立管管夹.fs" />
+		<Compile Include="管夹导向支座.fs" />
+		<Compile Include="管夹滑动支座.fs" />
+		<Compile Include="管夹管座.fs" />
+		<Compile Include="耳式支座.fs" />
+		<Compile Include="花兰螺丝.fs" />
+		<Compile Include="钢管支撑.fs" />
+		<Compile Include="长管夹.fs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AutoCADWpf\AutoCADWpf.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="accoremgd">
+		  <HintPath>C:\Program Files\Autodesk\AutoCAD 2024\accoremgd.dll</HintPath>
+		</Reference>
+		<Reference Include="Acdbmgd">
+		  <HintPath>C:\Program Files\Autodesk\AutoCAD 2024\acdbmgd.dll</HintPath>
+		</Reference>
+		<Reference Include="Acmgd">
+		  <HintPath>C:\Program Files\Autodesk\AutoCAD 2024\acmgd.dll</HintPath>
+		</Reference>
+		<Reference Include="Databases">
+		  <HintPath>..\..\LakeFunctions\Databases\bin\Release\netstandard2.0\Databases.dll</HintPath>
+		</Reference>
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
+</Project>

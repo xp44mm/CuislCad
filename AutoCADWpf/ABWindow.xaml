@@ -1,0 +1,41 @@
+﻿<mah:MetroWindow xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    x:Class="AutoCADWpf.ABWindow"
+    
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AB Window" Height="144" Width="300">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="A" />
+        <TextBox x:Name="txtA" Grid.Column="1" />
+        
+        <Label Content="B"  Grid.Row="1" />
+        <TextBox x:Name="txtB" Grid.Column="1" Grid.Row="1" />
+        
+        <TextBlock  Grid.Row="2" Grid.ColumnSpan="2" Text="提示：先删除所有的水平线和垂直线" Grid.RowSpan="2"/>
+        <Button Grid.Column="1" Grid.Row="3" x:Name="Ok" Click="Ok_Click">绘制</Button>
+
+    </Grid>
+</mah:MetroWindow>
