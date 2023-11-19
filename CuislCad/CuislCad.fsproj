@@ -15,10 +15,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Include="Array.fs" />
+		<Compile Include="Input.fs" />
 		<Compile Include="ColumnStyles.fs" />
 		<Compile Include="Table.fs" />
-		<Compile Include="Input.fs" />
 		<Compile Include="TableDrawer.fs" />
 		<Compile Include="Convert.fs" />
 		<Compile Include="Creator.fs" />
@@ -94,8 +93,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="FSharp.Idioms" Version="1.4.9" />
 	  <PackageReference Include="MahApps.Metro" Version="2.4.10" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>

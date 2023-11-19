@@ -1,10 +1,13 @@
-﻿module cuisl.cad.Table 
+﻿module cuisl.cad.Table
 
 open System
-open Autodesk.AutoCAD.Geometry 
-open Autodesk.AutoCAD.DatabaseServices 
+open System.Text.RegularExpressions
+
+open Autodesk.AutoCAD.Geometry
+open Autodesk.AutoCAD.DatabaseServices
 
 open ColumnStyles
+open FSharp.Idioms
 
 //align
 let attach (align:Align) =
@@ -19,9 +22,8 @@ let horiz (cs:ColumnStyle) offset x =
     | Center-> x + 0.5 * cs.Width
     | Right -> x + cs.Width - offset
 
-let entities (tbl:string[,])(colstyles:ColumnStyle[]) =
-    let rowCount =tbl.GetLength(0)
-    let colCount =tbl.GetLength(1)
+let entities (tbl: string[][]) (colstyles: ColumnStyle[]) =
+    let rowCount = tbl.Length
 
     //文本高度与行高度
     let textHeight = 3.0
@@ -34,8 +36,8 @@ let entities (tbl:string[,])(colstyles:ColumnStyle[]) =
     //垂直直线的X坐标
     let xVerticalLines =
         let lines =
-            colstyles 
-            |> Array.scan(fun cord style ->cord + style.Width) 0.0
+            colstyles
+            |> Array.scan(fun cord style -> cord + style.Width) 0.0
         lines
 
     //水平直线的Y坐标
@@ -72,28 +74,44 @@ let entities (tbl:string[,])(colstyles:ColumnStyle[]) =
             [0 .. rowCount-1]
             |>List.map(fun r ->
                 let y = yHorizontalLines.[r] + YOffset
-                let txt = new DBText(
-                            Justify= attach style.Align,
-                            TextString = tbl.[r,c],
-                            Height = textHeight)
-
-                if txt.Justify = AttachmentPoint.BaseLeft 
-                then txt.Position <- new Point3d(x,y,0.0) 
-                else txt.AlignmentPoint <- new Point3d(x,y,0.0)                 
-                txt))
-        |>List.concat 
-
+                match tbl.[r].[c] with
+                | null | "" -> null
+                | cell ->
+                    let txt = new DBText(
+                                Justify = attach style.Align,
+                                TextString = cell,
+                                Height = textHeight)
+                    if txt.Justify = AttachmentPoint.BaseLeft then
+                        txt.Position <- new Point3d(x,y,0.0)
+                    else 
+                        txt.AlignmentPoint <- new Point3d(x,y,0.0)
+                    txt
+                )
+            |> List.filter(fun dbtext -> dbtext <> null)
+            )
+        |> List.concat
     dbtexts,lines
 
-let table(dbtexts : DBText list) =
-    //
+let entitiesWithoutSytles (tbl: string[][]) =
+    if tbl.Length > 0 then
+        let colCount = tbl.[0].Length
+        let colstyles =
+            Array.create colCount ColumnStyle.Default
+        entities tbl colstyles
+    else [],[]
+
+///对从cad中读取的文本，填写到表格行列中。
+let fromCAD (dbtexts: DBText []) =
     let step values delta =
-        let sorted =values |> Array.sort |> List.ofArray 
+        let sorted = 
+            values 
+            |> Array.sort 
+            |> List.ofArray
 
         let rec loop acc sorted =
             match sorted with
-            | [] -> acc|> List.rev 
-            | h::t ->               
+            | [] -> acc|> List.rev
+            | h::t ->
                 if h - List.head acc > delta then
                     loop (h::acc) t
                 else
@@ -106,38 +124,82 @@ let table(dbtexts : DBText list) =
         | _ -> txt.AlignmentPoint
 
     //假定所有的文字高度相同，任选一个文本获得其高度
-    let textHeight = dbtexts.[0].Height 
+    let textHeight = dbtexts.[0].Height
 
     //表格中每一列的x坐标, 和每一行的y坐标
     let colspace = textHeight*1.4
     let rowspace = textHeight*1.1
     let cols,rows =
-        let ps = [ for txt in dbtexts -> dbtextPoint txt]
+        let ps = [ for txt in dbtexts -> dbtextPoint txt ]
         step [|for p in ps -> p.X|] colspace,
         step [|for p in ps -> p.Y|] rowspace
+    let cells =
+        dbtexts
+        |> Seq.map(fun txt ->
+            let p = dbtextPoint txt
+            let c = cols |> Seq.findIndex(fun col -> abs(p.X-col)<colspace)
+            let r = rows |> Seq.findIndex(fun row -> abs(p.Y-row)<rowspace)
+            let t = txt.TextString.Replace("%%d", "°").Replace("%%c", "Φ")
+            (r,c),t
+        )
+        |> Map.ofSeq
 
-    let tbl : string[,] = Array2D.zeroCreate rows.Length  cols.Length 
-    dbtexts
-    |> List.iter(fun txt ->
-        let p = dbtextPoint txt
-        let c = cols|>List.findIndex(fun col -> abs(p.X-col)<colspace)
-        let r = rows|>List.findIndex(fun row -> abs(p.Y-row)<rowspace)
-        tbl.[r,c]<-txt.TextString.Replace("%%d", "°").Replace("%%c", "Φ"))
-    tbl
+    [| 
+        for r in [0..rows.Length-1] do
+            [|
+                for c in [0..cols.Length-1] do
+                if cells.ContainsKey(r,c) then
+                    cells.[r,c]
+                else ""
+            |]
+    |]
 
-//合成输出文本
-let output (texts:string[,]) =
-    let res =
-        [|
-            let rows = texts.GetLength(0)
-            let cols = texts.GetLength(1)
 
-            for r in [0 .. rows-1] ->
-                [| for c in [0 .. cols-1] -> texts.[r,c]|]
-        |]
+///// get cells
+//let parseText (text:string) =
+//    let text = Regex.Replace(text,@"(\r\n|\r|\n)$","")
+//    let lines = Regex.Split(text,@"\r\n|\r|\n")
+//    lines
+//    |> Array.map(fun ln -> ln.Split [|'\t'|])
 
-    let rows = 
-        res |> Array.map(fun cols -> String.Join("\t",cols))
+///// 把所有行的列数对齐到最大
+//let alignCols(cells:string[][])=
+//    let mlen =
+//        cells
+//        |> Array.map(fun arr -> arr.Length)
+//        |> Array.max
+//    cells
+//    |> Array.map(fun arr ->
+//        match mlen - arr.Length with
+//        | 0 -> arr
+//        | dlen ->
+//            [|
+//                yield! arr
+//                for _ in [1..dlen] do
+//                    yield ""
+//            |]
+//    )
 
-    String.Join("\n",rows)
+//let stringify (cells:string[][]) =
+//    cells
+//    |> Array.map(fun cols ->
+//        cols |> String.concat "\t"
+//    )
+//    |> String.concat "\r\n"
+
+////合成输出文本
+//let output (texts:string[,]) =
+//    let res =
+//        [|
+//            let rows = texts.GetLength(0)
+//            let cols = texts.GetLength(1)
+
+//            for r in [0 .. rows-1] ->
+//                [| for c in [0 .. cols-1] -> texts.[r,c]|]
+//        |]
+
+//    let rows =
+//        res |> Array.map(fun cols -> String.Join("\t",cols))
+
+//    String.Join("\n",rows)
 
